@@ -1,0 +1,36 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+	implementation ("io.github.resilience4j:resilience4j-circuitbreaker:1.7.1")
+	implementation("io.reactivex.rxjava2:rxjava:2.2.21")
+	implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
+	implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
