@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import retrofit2.Response;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.util.logging.Logger;
 
 @Service
@@ -16,17 +18,17 @@ public class ClientServiceImpl {
     @Autowired
     private ClientApi clientApi;
 
-    public Client getClient() {
+    public Client getClient() throws IOException {
         try {
             Response<Client> clientResponse = clientApi.getClientApi().execute();
             if (!clientResponse.isSuccessful()) {
                 logger.info("Error");
-                throw new RuntimeException("Error");
+                throw new SocketException(clientResponse.message());
             }
             logger.info("Exito");
             return clientResponse.body();
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+        } catch (IOException e) {
+            throw e;
         }
     }
 
